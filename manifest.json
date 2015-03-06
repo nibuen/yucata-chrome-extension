@@ -1,0 +1,16 @@
+{
+  "background_page": "background.html",
+  "name": "Yucata",
+  "version": "1.2.2",
+  "icons": {
+    "128": "icon_128.png"
+  },  
+  "description": "Yucata Game Turn Reminder.",
+  "options_page": "options.html",
+  "browser_action": {
+    "default_title": ""
+	},  
+  "permissions": [
+	"tabs", "http://www.yucata.de/"
+  ]
+}

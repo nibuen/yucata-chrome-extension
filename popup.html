@@ -1,0 +1,41 @@
+<script>
+var req = new XMLHttpRequest();
+
+var nextGameID = localStorage["next_game_id"];
+
+if(!nextGameID || nextGameID <= 0) {
+	return;
+}
+
+var url = "http://www.yucata.de/en/Game/" + nextGameID;
+//alert(url);
+
+req.open(
+    "POST",
+    url,
+    true);
+req.onload = showPhotos;
+req.send(null);
+
+function showPhotos() {
+	var content = req.responseText;	
+	var doc = document.open("text/html","replace");
+	doc.write(content);
+	doc.close();
+
+	
+	//var iframe = document.createElement("iframe");
+    //document.body.appendChild(iframe);
+
+	//var doc = iframe.document;
+    //if(iframe.contentDocument)
+    //    doc = iframe.contentDocument; // For NS6
+    //else if(iframe.contentWindow)
+    //    doc = iframe.contentWindow.document; // For IE5.5 and IE6
+    // Put the content in the iframe
+    //doc.open();
+    //doc.writeln(content);
+    //doc.close();
+}
+
+</script>

@@ -1,0 +1,150 @@
+<html>
+<head>
+<style>
+body {
+  font-family:helvetica, arial, sans-serif;
+  font-size:80%;
+  margin:10px;
+}
+
+#header {
+  padding-bottom:1.5em;
+  padding-top:1.5em;
+}
+
+#header h1 {
+  font-size: 156%;
+  display:inline;
+  padding-bottom:43px;
+  padding-left:75px;
+  padding-top:40px;
+  background:url(voice-128.png) no-repeat;
+  background-size:67px;
+  background-position:1px 18px;
+}
+
+#footer {
+  margin-left: 24px;
+  margin-top: 12px;
+}
+
+.gc-settings-content {
+  margin: 6px 6px 0 6px;
+  padding: 10px 10px 10px 10px;
+  color: #333;
+  border: 1px solid #dedede;
+  -webkit-border-radius: 5px 5px;
+}
+
+.gc-settings-table {
+  width: 100%;
+  font-size: 1em;
+}
+
+.gc-settings-table .left,
+.gc-settings-table .right {
+  vertical-align: top;
+  border-bottom: 0 dotted #aaa;
+}
+
+.gc-settings-table th {
+  text-align: right;
+  width: 1%;
+  white-space: nowrap;
+  padding: 12px 24px 12px 12px;
+}
+
+.gc-settings-table td {
+  width: 99%;
+  white-space: nowrap;
+  padding: 12px;
+}
+
+</style>
+<title>Yucata Extension Options</title>
+</head>
+<script type="text/javascript">
+
+var gameplayRadio;
+var languageRadio;
+
+// Saves options to localStorage.
+function save_options() {
+	
+		var gameplayBvr = '1';
+		for ( var i = 0; i < gameplayRadio.length; i++) {
+			if (gameplayRadio[i].checked) {
+				gameplayBvr = gameplayRadio[i].value;
+			}
+		}
+		localStorage["gameplay_type"] = gameplayBvr;
+		
+		var languageBvr = '1';
+		for ( var i = 0; i < languageRadio.length; i++) {
+			if (languageRadio[i].checked) {
+				languageBvr = languageRadio[i].value;
+			}
+		}
+		localStorage["selected_language"] = languageBvr;
+
+		// Update status to let user know options were saved.
+		var status = document.getElementById("status");
+		status.innerHTML = "Options Saved.";
+		setTimeout(function() {
+			status.innerHTML = "";
+		}, 750);
+	}
+
+	// Restores select box state to saved value from localStorage.
+	function restore_options() {
+		var gameplay = localStorage['gameplay_type'] || '1';
+		gameplayRadio = document.yucata.gameplay;
+		for ( var i = 0; i < gameplayRadio.length; i++) {
+			gameplayRadio[i].checked = false;
+			if (gameplayRadio[i].value == gameplay) {
+				gameplayRadio[i].checked = true;
+			}
+		}
+
+		var gameplay = localStorage['selected_language'] || '1';
+		languageRadio = document.yucata.language;
+		for ( var i = 0; i < languageRadio.length; i++) {
+			languageRadio[i].checked = false;
+			if (languageRadio[i].value == gameplay) {
+				languageRadio[i].checked = true;
+			}
+		}
+
+	}
+</script>
+
+
+
+<body onload="restore_options()">
+<form name="yucata">
+<div class="gc-settings-content">
+<table class="gc-settings-table" id="gc-settings-voicemail-content">
+  <tr>
+    <th class="left">Default Behavior</th>
+    <td class="right">
+      <input type="radio" id="gametab" name="gameplay" value="1"/>
+      <label for="gametab">Launch Game in Tab</label><br/>
+      <input type="radio" id="overviewtab" name="gameplay" value="2"/>
+      <label for="overviewtab">Launch Overview in Tab</label><br/>
+    </td>
+  </tr>  
+  <tr>
+    <th class="left">Language</th>
+    <td class="right">
+      <input type="radio" id="english" name="language" value="1"/>
+      <label for="english">English</label><br/>
+      <input type="radio" id="german" name="language" value="2"/>
+      <label for="german">German</label><br/>
+    </td>
+  </tr>
+</table>
+</div>
+</form>
+<button onclick="save_options()">Save</button>
+</body>
+</html>
